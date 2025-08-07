@@ -1,7 +1,10 @@
 import 'package:car_booking_app/auth_service.dart';
+import 'package:car_booking_app/l10n/app_localizations.dart';
 import 'package:car_booking_app/screens/booking_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:table_calendar/table_calendar.dart';
+import 'package:intl/intl.dart';
+
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -33,9 +36,12 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
+    final locale = Localizations.localeOf(context).toString();
+
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Car Booking Calendar'),
+        title: Text(l10n.carBookingCalendar),
         actions: [
           IconButton(
             icon: const Icon(Icons.logout),
@@ -48,6 +54,7 @@ class _HomePageState extends State<HomePage> {
       body: Column(
         children: [
           TableCalendar(
+            locale: locale,
             firstDay: DateTime.utc(2020, 1, 1),
             lastDay: DateTime.utc(2030, 12, 31),
             focusedDay: _focusedDay,
@@ -57,6 +64,11 @@ class _HomePageState extends State<HomePage> {
             onPageChanged: (focusedDay) {
               _focusedDay = focusedDay;
             },
+            headerStyle: HeaderStyle(
+              formatButtonVisible: false,
+              titleCentered: true,
+              titleTextFormatter: (date, locale) => DateFormat.yMMMM(locale).format(date),
+            ),
           ),
         ],
       ),

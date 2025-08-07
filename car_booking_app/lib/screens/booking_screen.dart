@@ -1,7 +1,9 @@
+import 'package:car_booking_app/l10n/app_localizations.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:car_booking_app/firestore_service.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:intl/intl.dart';
 
 class BookingScreen extends StatefulWidget {
   final DateTime selectedDate;
@@ -27,7 +29,6 @@ class _BookingScreenState extends State<BookingScreen> {
   @override
   void initState() {
     super.initState();
-    // Pre-fill the name with the current user's display name
     final user = FirebaseAuth.instance.currentUser;
     if (user != null && user.displayName != null) {
       _nameController.text = user.displayName!;
@@ -51,10 +52,11 @@ class _BookingScreenState extends State<BookingScreen> {
   }
 
   void _submitForm() async {
+    final l10n = AppLocalizations.of(context)!;
     if (_formKey.currentState!.validate()) {
       if (_pickupTime == null || _returnTime == null) {
         ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(content: Text('Please select pickup and return times.')),
+          SnackBar(content: Text(l10n.pleaseSelectPickupAndReturnTimes)),
         );
         return;
       }
@@ -73,12 +75,12 @@ class _BookingScreenState extends State<BookingScreen> {
       try {
         await _firestoreService.addBooking(bookingDetails);
         ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(content: Text('Booking successfully created!')),
+          SnackBar(content: Text(l10n.bookingSuccessfullyCreated)),
         );
         Navigator.pop(context);
       } catch (e) {
         ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text('Failed to create booking: $e')),
+          SnackBar(content: Text(l10n.failedToCreateBooking(e.toString()))),
         );
       }
     }
@@ -93,9 +95,13 @@ class _BookingScreenState extends State<BookingScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
+    final locale = Localizations.localeOf(context).toString();
+    final formattedDate = DateFormat.yMMMd(locale).format(widget.selectedDate);
+
     return Scaffold(
       appBar: AppBar(
-        title: Text('Book a Car on ${widget.selectedDate.toLocal()}'.split(' ')[0]),
+        title: Text(l10n.bookACarOn(formattedDate)),
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
@@ -105,10 +111,10 @@ class _BookingScreenState extends State<BookingScreen> {
             children: [
               TextFormField(
                 controller: _nameController,
-                decoration: const InputDecoration(labelText: 'Your Name'),
+                decoration: InputDecoration(labelText: l10n.yourName),
                 validator: (value) {
                   if (value == null || value.isEmpty) {
-                    return 'Please enter your name';
+                    return l10n.pleaseEnterYourName;
                   }
                   return null;
                 },
@@ -116,7 +122,7 @@ class _BookingScreenState extends State<BookingScreen> {
               const SizedBox(height: 16),
               DropdownButtonFormField<String>(
                 value: _selectedCarType,
-                hint: const Text('Select Car Type'),
+                hint: Text(l10n.selectCarType),
                 items: _carTypes.map((String carType) {
                   return DropdownMenuItem<String>(
                     value: carType,
@@ -128,29 +134,29 @@ class _BookingScreenState extends State<BookingScreen> {
                     _selectedCarType = newValue;
                   });
                 },
-                validator: (value) => value == null ? 'Please select a car type' : null,
+                validator: (value) => value == null ? l10n.pleaseSelectACarType : null,
               ),
               const SizedBox(height: 16),
               ListTile(
-                title: Text('Pickup Time: ${_pickupTime?.format(context) ?? 'Not set'}'),
+                title: Text(l10n.pickupTime(_pickupTime?.format(context) ?? l10n.notSet)),
                 trailing: const Icon(Icons.access_time),
                 onTap: () => _selectTime(context, true),
               ),
               ListTile(
-                title: Text('Return Time: ${_returnTime?.format(context) ?? 'Not set'}'),
+                title: Text(l10n.returnTime(_returnTime?.format(context) ?? l10n.notSet)),
                 trailing: const Icon(Icons.access_time),
                 onTap: () => _selectTime(context, false),
               ),
               const SizedBox(height: 16),
               TextFormField(
                 controller: _notesController,
-                decoration: const InputDecoration(labelText: 'Additional Notes'),
+                decoration: InputDecoration(labelText: l10n.additionalNotes),
                 maxLines: 3,
               ),
               const SizedBox(height: 24),
               ElevatedButton(
                 onPressed: _submitForm,
-                child: const Text('Submit Booking'),
+                child: Text(l10n.submitBooking),
               ),
             ],
           ),

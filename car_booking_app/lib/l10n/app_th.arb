@@ -1,0 +1,47 @@
+{
+    "@@locale": "th",
+    "login": "เข้าสู่ระบบ",
+    "signInWithGoogle": "ลงชื่อเข้าใช้ด้วย Google",
+    "carBookingCalendar": "ปฏิทินการจองรถ",
+    "bookACarOn": "จองรถสำหรับวันที่ {date}",
+    "@bookACarOn": {
+        "placeholders": {
+            "date": {
+                "type": "String"
+            }
+        }
+    },
+    "yourName": "ชื่อของคุณ",
+    "pleaseEnterYourName": "กรุณากรอกชื่อของคุณ",
+    "selectCarType": "เลือกประเภทรถ",
+    "pleaseSelectACarType": "กรุณาเลือกประเภทรถ",
+    "pickupTime": "เวลารับรถ: {time}",
+    "@pickupTime": {
+        "placeholders": {
+            "time": {
+                "type": "String"
+            }
+        }
+    },
+    "returnTime": "เวลาคืนรถ: {time}",
+    "@returnTime": {
+        "placeholders": {
+            "time": {
+                "type": "String"
+            }
+        }
+    },
+    "notSet": "ยังไม่ได้ตั้งค่า",
+    "additionalNotes": "หมายเหตุเพิ่มเติม",
+    "submitBooking": "ยืนยันการจอง",
+    "pleaseSelectPickupAndReturnTimes": "กรุณาเลือกเวลารับและคืนรถ",
+    "bookingSuccessfullyCreated": "สร้างการจองสำเร็จ!",
+    "failedToCreateBooking": "ไม่สามารถสร้างการจองได้: {error}",
+    "@failedToCreateBooking": {
+        "placeholders": {
+            "error": {
+                "type": "String"
+            }
+        }
+    }
+}

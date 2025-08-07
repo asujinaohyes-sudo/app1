@@ -1,0 +1,47 @@
+{
+    "@@locale": "en",
+    "login": "Login",
+    "signInWithGoogle": "Sign in with Google",
+    "carBookingCalendar": "Car Booking Calendar",
+    "bookACarOn": "Book a Car on {date}",
+    "@bookACarOn": {
+        "placeholders": {
+            "date": {
+                "type": "String"
+            }
+        }
+    },
+    "yourName": "Your Name",
+    "pleaseEnterYourName": "Please enter your name",
+    "selectCarType": "Select Car Type",
+    "pleaseSelectACarType": "Please select a car type",
+    "pickupTime": "Pickup Time: {time}",
+    "@pickupTime": {
+        "placeholders": {
+            "time": {
+                "type": "String"
+            }
+        }
+    },
+    "returnTime": "Return Time: {time}",
+    "@returnTime": {
+        "placeholders": {
+            "time": {
+                "type": "String"
+            }
+        }
+    },
+    "notSet": "Not set",
+    "additionalNotes": "Additional Notes",
+    "submitBooking": "Submit Booking",
+    "pleaseSelectPickupAndReturnTimes": "Please select pickup and return times.",
+    "bookingSuccessfullyCreated": "Booking successfully created!",
+    "failedToCreateBooking": "Failed to create booking: {error}",
+    "@failedToCreateBooking": {
+        "placeholders": {
+            "error": {
+                "type": "String"
+            }
+        }
+    }
+}
